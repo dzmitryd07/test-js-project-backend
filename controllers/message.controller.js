@@ -5,7 +5,7 @@ const Message = db.messages;
 exports.create = async (req, res) => {
 
     const {name, message} = req.body;
-    const nameValidator = /^[a-zA-Z0-9_ ]+$/gi;
+    const nameValidator = /^[a-zA-Z0-9_]+$/gi;
     const messageValidator = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
     let validationError = false;
 
