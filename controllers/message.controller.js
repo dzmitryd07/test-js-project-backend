@@ -39,7 +39,11 @@ exports.create = async (req, res) => {
             .save(new_message)
             .then(data => {
                 res.status(201).send(data);
-            })
+            }).catch(error => {
+            if (error.response) {
+                res.send(error.response.data)
+            }
+        })
     }
 };
 
@@ -47,5 +51,10 @@ exports.findAll = (req, res) => {
     Message.find().sort({createdAt: -1})
         .then(data => {
             res.send(data);
+        })
+        .catch(error => {
+            if (error.response) {
+                res.send(error.response.data)
+            }
         })
 };
