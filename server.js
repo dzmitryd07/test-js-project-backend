@@ -2,10 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const db = require("./models")
 const app = express();
+
 const path = require('path')
+const PORT = process.env.PORT || 3001;
+var corsOptions = {
+    origin: "*"
+};
 
 app.use(express.json())
 app.use(express.static(path.join('build')));
+app.use(cors(corsOptions));
 
 db.mongoose
     .connect(db.url, {
@@ -20,17 +26,12 @@ db.mongoose
         process.exit();
     });
 
-var corsOptions = {
-    origin: "*"
-};
-
-app.use(cors(corsOptions));
-
 require("./routes/message.routes")(app);
 
-const PORT = process.env.PORT || 3001;
+app.get("/", (req, res) => {
+    res.json({message: "Welcome to server part"});
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
-//
